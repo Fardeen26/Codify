@@ -42,10 +42,10 @@ export default function CodeEditor() {
     }
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen flex flex-col gap-6 items-center justify-center">
+        <div className="flex flex-col gap-6 min-h-[90vh] items-center justify-center dark:text-white">
             <div className="w-full max-w-4xl space-y-4">
                 <Textarea
-                    className="w-full h-40 p-4 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono text-gray-800"
+                    className="w-full h-40 p-4 rounded-md border dark:text-white border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono text-gray-800"
                     value={code}
                     onChange={(e) =>
                         setCode(e.target.value)
@@ -91,11 +91,11 @@ export default function CodeEditor() {
                                 <SelectItem value="javascript">JavaScript</SelectItem>
                                 <SelectItem value="python">Python</SelectItem>
                                 <SelectItem value="html">HTML</SelectItem>
-                                <SelectItem value="c++">C++</SelectItem>
                                 <SelectItem value="java">Java</SelectItem>
                                 <SelectItem value="rust">Rust</SelectItem>
                                 <SelectItem value="go">Go</SelectItem>
-                                <SelectItem value="bash">Bash</SelectItem>
+                                <SelectItem value="bash">C++</SelectItem>
+                                <SelectItem value="c++">Bash</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -142,7 +142,7 @@ export default function CodeEditor() {
 
             <div
                 id="code-preview"
-                className={`w-full max-w-4xl p-4 rounded-md border border-gray-200 shadow-lg ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''}`}
+                className={`w-full max-w-4xl p-4 rounded-md border border-gray-200 dark:border-none shadow-lg ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''}`}
                 style={{ backgroundColor }}
             >
                 <SyntaxHighlighter
