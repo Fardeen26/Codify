@@ -43,8 +43,8 @@ export default function CodeEditor() {
     }
 
     return (
-        <div className="flex flex-col gap-6 min-h-[90vh] items-center pb-4 justify-center dark:text-white">
-            <div className="w-full max-w-4xl space-y-4">
+        <div className="flex flex-col gap-6 min-h-[90vh] items-center pb-4 justify-center dark:text-white max-sm:px-2">
+            <div className="w-full max-w-4xl space-y-4 max-sm:space-y-4">
                 <Textarea
                     className="w-full h-40 p-4 rounded-md border dark:text-white border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
                     value={code}
@@ -55,7 +55,7 @@ export default function CodeEditor() {
 
                 />
 
-                <div className="flex flex-wrap gap-4 items-center justify-between">
+                <div className="flex flex-wrap gap-4 max-sm:gap-2 items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Label>Theme:</Label>
                         <Select
