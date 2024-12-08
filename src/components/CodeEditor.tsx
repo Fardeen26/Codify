@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 import { themes } from "@/lib/theme";
+import { Label } from "./ui/label";
 
 
 export default function CodeEditor() {
@@ -42,10 +43,10 @@ export default function CodeEditor() {
     }
 
     return (
-        <div className="flex flex-col gap-6 min-h-[90vh] items-center justify-center dark:text-white">
+        <div className="flex flex-col gap-6 min-h-[90vh] items-center pb-4 justify-center dark:text-white">
             <div className="w-full max-w-4xl space-y-4">
                 <Textarea
-                    className="w-full h-40 p-4 rounded-md border dark:text-white border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono text-gray-800"
+                    className="w-full h-40 p-4 rounded-md border dark:text-white border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800"
                     value={code}
                     onChange={(e) =>
                         setCode(e.target.value)
@@ -56,7 +57,7 @@ export default function CodeEditor() {
 
                 <div className="flex flex-wrap gap-4 items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <label className="text-sm font-medium text-gray-600">Theme:</label>
+                        <Label>Theme:</Label>
                         <Select
                             onValueChange={(value: string) => {
                                 setTheme(themes[value]);
@@ -76,9 +77,7 @@ export default function CodeEditor() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <label className="text-sm font-medium text-gray-600">
-                            Language:
-                        </label>
+                        <Label>Language:</Label>
                         <Select
                             onValueChange={(value: string) => {
                                 setLanguage(value);
@@ -101,40 +100,36 @@ export default function CodeEditor() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <label className="text-sm font-medium text-gray-600">
-                            Background:
-                        </label>
-                        <input
+                        <Label>Background:</Label>
+                        <Input
                             type="color"
                             value={backgroundColor}
                             onChange={(e) =>
                                 setBackgroundColor(e.target.value)
                             }
-                            className="w-10 h-10 border rounded-md cursor-pointer"
+                            className="w-16 h-8"
                         />
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <label className="text-sm font-medium text-gray-600">
-                            Font Size:
-                        </label>
+                        <Label>Font Size:</Label>
                         <Input
                             type="number"
                             value={fontSize}
                             onChange={(e) =>
                                 setFontSize(parseInt(e.target.value, 10) || 16)
                             }
-                            className="w-20"
+                            className="w-16"
                         />
                     </div>
 
-                    <Button onClick={handleBackgroundHidden}>
+                    <Button onClick={handleBackgroundHidden} className="text-xs h-8">
                         {
                             isBackgroundHidden ? 'Add Background' : 'Hide Background'
                         }
                     </Button>
 
-                    <Button onClick={exportAsImage} className="ml-auto">
+                    <Button onClick={exportAsImage} className="ml-auto text-xs h-8">
                         Export as Image
                     </Button>
                 </div>
