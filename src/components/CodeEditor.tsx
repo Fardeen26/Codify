@@ -1,49 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React, { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import {
-    coy,
-    coldarkDark,
-    nightOwl,
-    vscDarkPlus,
-    materialLight,
-    materialDark,
-    oneLight,
-    oneDark,
-    synthwave84,
-    twilight,
-    solarizedlight,
-    duotoneSpace,
-    duotoneForest,
-    coldarkCold
-} from "react-syntax-highlighter/dist/esm/styles/prism";
-//  
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { toPng } from "html-to-image";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
+import { themes } from "@/lib/theme";
 
-const themes: Record<string, any> = {
-    coldarkDark,
-    nightOwl,
-    vscDarkPlus,
-    materialLight,
-    materialDark,
-    oneLight,
-    oneDark,
-    synthwave84,
-    coy,
-    twilight,
-    solarizedlight,
-    duotoneSpace,
-    duotoneForest,
-    coldarkCold
-};
 
-const CodeEditor: React.FC = () => {
+export default function CodeEditor() {
     const [code, setCode] = useState<string>("");
     const [theme, setTheme] = useState<typeof vscDarkPlus>(vscDarkPlus);
     const [language, setLanguage] = useState<string>("javascript");
@@ -51,7 +19,7 @@ const CodeEditor: React.FC = () => {
     const [backgroundColor, setBackgroundColor] = useState<string>("#ffffff");
     const [isBackgroundHidden, setIsBackgroundHidden] = useState(false)
 
-    const exportAsImage = (): void => {
+    const exportAsImage = () => {
         const node = document.getElementById("code-preview");
         if (!node) {
             return;
@@ -79,7 +47,7 @@ const CodeEditor: React.FC = () => {
                 <Textarea
                     className="w-full h-40 p-4 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none font-mono text-gray-800"
                     value={code}
-                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                    onChange={(e) =>
                         setCode(e.target.value)
                     }
                     placeholder="Paste your code here..."
@@ -127,6 +95,7 @@ const CodeEditor: React.FC = () => {
                                 <SelectItem value="java">Java</SelectItem>
                                 <SelectItem value="rust">Rust</SelectItem>
                                 <SelectItem value="go">Go</SelectItem>
+                                <SelectItem value="bash">Bash</SelectItem>
                             </SelectContent>
                         </Select>
                     </div>
@@ -138,7 +107,7 @@ const CodeEditor: React.FC = () => {
                         <input
                             type="color"
                             value={backgroundColor}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            onChange={(e) =>
                                 setBackgroundColor(e.target.value)
                             }
                             className="w-10 h-10 border rounded-md cursor-pointer"
@@ -152,7 +121,7 @@ const CodeEditor: React.FC = () => {
                         <Input
                             type="number"
                             value={fontSize}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            onChange={(e) =>
                                 setFontSize(parseInt(e.target.value, 10) || 16)
                             }
                             className="w-20"
@@ -191,11 +160,6 @@ const CodeEditor: React.FC = () => {
                     {code || "// Your code will appear here..."}
                 </SyntaxHighlighter>
             </div>
-
-
-
         </div>
     );
 };
-
-export default CodeEditor;
