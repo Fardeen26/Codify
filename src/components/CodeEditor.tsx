@@ -57,7 +57,7 @@ export default function CodeEditor() {
 
                 <div className="flex flex-wrap gap-4 max-sm:gap-2 items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <Label>Theme:</Label>
+                        <Label className="text-[13px]">Theme:</Label>
                         <Select
                             onValueChange={(value: string) => {
                                 setTheme(themes[value]);
@@ -77,7 +77,7 @@ export default function CodeEditor() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <Label>Language:</Label>
+                        <Label className="text-[13px]">Language:</Label>
                         <Select
                             onValueChange={(value: string) => {
                                 setLanguage(value);
@@ -100,7 +100,7 @@ export default function CodeEditor() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <Label>Background:</Label>
+                        <Label className="text-[13px]">Background:</Label>
                         <Input
                             type="color"
                             value={backgroundColor}
@@ -112,7 +112,7 @@ export default function CodeEditor() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <Label>Font Size:</Label>
+                        <Label className="text-[13px]">Font Size:</Label>
                         <Input
                             type="number"
                             value={fontSize}
@@ -123,13 +123,13 @@ export default function CodeEditor() {
                         />
                     </div>
 
-                    <Button onClick={handleBackgroundHidden} className="text-xs h-8">
+                    <Button onClick={handleBackgroundHidden} className="text-xs h-8 dark:bg-white dark:text-black dark:hover:bg-gray-100">
                         {
                             isBackgroundHidden ? 'Add Background' : 'Hide Background'
                         }
                     </Button>
 
-                    <Button onClick={exportAsImage} className="ml-auto text-xs h-8">
+                    <Button onClick={exportAsImage} className="ml-auto text-xs h-8 dark:bg-white dark:text-black dark:hover:bg-gray-100">
                         Export as Image
                     </Button>
                 </div>
@@ -137,9 +137,16 @@ export default function CodeEditor() {
 
             <div
                 id="code-preview"
-                className={`w-full max-w-4xl p-4 rounded-md border border-gray-200 dark:border-none shadow-lg ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''}`}
+                className={`w-full max-w-4xl p-4 rounded-md border border-gray-200 dark:border-none shadow-lg relative ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''
+                    }`}
                 style={{ backgroundColor }}
             >
+                <div className="flex items-center space-x-2 mt-1 absolute top-1 left-5">
+                    <span className="w-[10px] h-[10px] rounded-full bg-red-500"></span>
+                    <span className="w-[10px] h-[10px] rounded-full bg-yellow-500"></span>
+                    <span className="w-[10px] h-[10px] rounded-full bg-green-500"></span>
+                </div>
+
                 <SyntaxHighlighter
                     language={language}
                     style={theme}
