@@ -4,22 +4,22 @@
 import React, { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
-    dracula,
     coy,
-    a11yDark,
-    atomDark,
     coldarkDark,
     nightOwl,
     vscDarkPlus,
-    funky,
-    darcula,
-    holiTheme,
     materialLight,
     materialDark,
     oneLight,
     oneDark,
     synthwave84,
+    twilight,
+    solarizedlight,
+    duotoneSpace,
+    duotoneForest,
+    coldarkCold
 } from "react-syntax-highlighter/dist/esm/styles/prism";
+//  
 import { toPng } from "html-to-image";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
@@ -27,25 +27,25 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 
 const themes: Record<string, any> = {
-    a11yDark,
-    atomDark,
     coldarkDark,
     nightOwl,
     vscDarkPlus,
-    funky,
-    darcula,
     materialLight,
     materialDark,
     oneLight,
     oneDark,
     synthwave84,
     coy,
-    holiTheme,
+    twilight,
+    solarizedlight,
+    duotoneSpace,
+    duotoneForest,
+    coldarkCold
 };
 
 const CodeEditor: React.FC = () => {
     const [code, setCode] = useState<string>("");
-    const [theme, setTheme] = useState<typeof dracula>(dracula);
+    const [theme, setTheme] = useState<typeof vscDarkPlus>(vscDarkPlus);
     const [language, setLanguage] = useState<string>("javascript");
     const [fontSize, setFontSize] = useState<number>(16);
     const [backgroundColor, setBackgroundColor] = useState<string>("#ffffff");
