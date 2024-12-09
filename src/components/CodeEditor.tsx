@@ -17,7 +17,7 @@ export default function CodeEditor() {
     const [theme, setTheme] = useState<typeof vscDarkPlus>(vscDarkPlus);
     const [language, setLanguage] = useState<string>("javascript");
     const [fontSize, setFontSize] = useState<number>(16);
-    const [backgroundColor, setBackgroundColor] = useState<string>("#ffffff");
+    const [backgroundColor, setBackgroundColor] = useState<string>("#D0DCE8");
     const [isBackgroundHidden, setIsBackgroundHidden] = useState(false)
 
     const exportAsImage = () => {
@@ -63,7 +63,7 @@ export default function CodeEditor() {
                                 setTheme(themes[value]);
                             }}
                         >
-                            <SelectTrigger className="w-40">
+                            <SelectTrigger className="w-35 h-8 text-xs">
                                 <SelectValue placeholder="Select Theme" />
                             </SelectTrigger>
                             <SelectContent>
@@ -83,7 +83,7 @@ export default function CodeEditor() {
                                 setLanguage(value);
                             }}
                         >
-                            <SelectTrigger className="w-40">
+                            <SelectTrigger className="w-35 h-8 text-xs">
                                 <SelectValue placeholder="Select Language" />
                             </SelectTrigger>
                             <SelectContent>
@@ -119,10 +119,11 @@ export default function CodeEditor() {
                             onChange={(e) =>
                                 setFontSize(parseInt(e.target.value, 10) || 16)
                             }
-                            className="w-16"
+                            className="w-16 h-8 font-xs"
                         />
                     </div>
-
+                </div>
+                <div className="flex justify-between">
                     <Button onClick={handleBackgroundHidden} className="text-xs h-8 dark:bg-white dark:text-black dark:hover:bg-gray-100">
                         {
                             isBackgroundHidden ? 'Add Background' : 'Hide Background'
@@ -157,9 +158,10 @@ export default function CodeEditor() {
                         wordBreak: "break-word",
                         overflow: "hidden",
                         display: "block",
+                        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4)'
                     }}
                 >
-                    {code || "// Your code will appear here..."}
+                    {code || "// Designed and Developed by Fardeen..."}
                 </SyntaxHighlighter>
             </div>
         </div>
