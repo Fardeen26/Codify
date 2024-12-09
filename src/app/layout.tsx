@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import DarkModeProvider from "@/provider/DarkModeProvider";
 import Header from "@/components/Header";
+import { Analytics } from "@vercel/analytics/react"
+
 import "./globals.css";
 
 const bricolage_grotesque_init = Bricolage_Grotesque({
@@ -27,6 +29,7 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Analytics />
         </body>
       </DarkModeProvider>
     </html>
