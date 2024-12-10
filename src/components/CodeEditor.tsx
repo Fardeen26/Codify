@@ -17,7 +17,7 @@ export default function CodeEditor() {
     const [theme, setTheme] = useState<typeof vscDarkPlus>(vscDarkPlus);
     const [language, setLanguage] = useState<string>("javascript");
     const [fontSize, setFontSize] = useState<number>(16);
-    const [backgroundColor, setBackgroundColor] = useState<string>("#D0DCE8");
+    const [backgroundColor, setBackgroundColor] = useState<string>("#575F68");
     const [isBackgroundHidden, setIsBackgroundHidden] = useState(false)
 
     const exportAsImage = () => {
