@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 import { themes } from "@/lib/theme";
+import { DownloadIcon, Eye, EyeOff } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 
 export default function CodeEditor() {
@@ -43,9 +45,9 @@ export default function CodeEditor() {
 
     return (
         <div className="flex flex-col gap-6 min-h-[90vh] items-center pb-4 justify-center dark:text-white max-sm:px-2">
-            <div className="w-full max-w-4xl space-y-4 max-sm:space-y-4">
+            <div className="w-full max-w-4xl space-y-4 max-sm:space-y-4 mb-[-15px]">
                 <Textarea
-                    className="w-full h-40 p-4 rounded-md border dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-800 border-black dark:border-white"
+                    className="w-full h-40 p-4 rounded-md border dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none border-black dark:border-white bg-[#111827] text-white"
                     value={code}
                     onChange={(e) =>
                         setCode(e.target.value)
@@ -54,15 +56,15 @@ export default function CodeEditor() {
 
                 />
 
-                <div className="flex flex-wrap gap-4 max-sm:gap-2 items-center justify-between max-sm:justify-center">
+                <div className="flex flex-wrap gap-4 max-sm:gap-2 items-center justify-between max-sm:justify-start pb-2">
                     <div className="flex items-center gap-2">
                         <Select
                             onValueChange={(value: string) => {
                                 setTheme(themes[value]);
                             }}
                         >
-                            <SelectTrigger className="w-35 h-8 text-xs border-black dark:border-white">
-                                <SelectValue placeholder="Select Theme" />
+                            <SelectTrigger className="px-12 w-48 h-8 text-xs text-center border-black dark:border-white">
+                                <SelectValue placeholder="Select Theme" className="text-center" />
                             </SelectTrigger>
                             <SelectContent>
                                 {Object.keys(themes).map((themeName) => (
@@ -80,13 +82,14 @@ export default function CodeEditor() {
                                 setLanguage(value);
                             }}
                         >
-                            <SelectTrigger className="w-35 h-8 text-xs border-black dark:border-white">
+                            <SelectTrigger className="px-12 w-52 h-8 text-xs border-black dark:border-white">
                                 <SelectValue placeholder="Select Language" />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectItem value="javascript">JavaScript</SelectItem>
                                 <SelectItem value="python">Python</SelectItem>
                                 <SelectItem value="html">HTML</SelectItem>
+                                <SelectItem value="css">CSS</SelectItem>
                                 <SelectItem value="java">Java</SelectItem>
                                 <SelectItem value="rust">Rust</SelectItem>
                                 <SelectItem value="go">Go</SelectItem>
@@ -103,7 +106,7 @@ export default function CodeEditor() {
                             onChange={(e) =>
                                 setBackgroundColor(e.target.value)
                             }
-                            className="w-16 h-8 border-black dark:border-white"
+                            className="px-12 w-48 h-8 border-black dark:border-white"
                         />
                     </div>
 
@@ -114,26 +117,46 @@ export default function CodeEditor() {
                             onChange={(e) =>
                                 setFontSize(parseInt(e.target.value, 10) || 16)
                             }
-                            className="w-16 h-8 font-xs border-black dark:border-white"
+                            className="w-20 text-center h-8 font-xs border-black dark:border-white"
                         />
                     </div>
-                    <div className="flex justify-between gap-12 max-sm:gap-2">
-                        <Button onClick={handleBackgroundHidden} className="text-xs h-8 bg-transparent border border-black dark:border-white text-black hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-white">
-                            {
-                                isBackgroundHidden ? 'Add Background' : 'Hide Background'
-                            }
-                        </Button>
 
-                        <Button onClick={exportAsImage} className="ml-auto text-xs h-8 bg-transparent border border-black dark:border-white text-black hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-white">
-                            Export as Image
-                        </Button>
-                    </div>
+                </div>
+                <div className="flex justify-end gap-3 max-sm:gap-2">
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button onClick={handleBackgroundHidden} className="h-7 bg-transparent border border-black dark:border-white text-black hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-white">
+                                    {
+                                        isBackgroundHidden ? <EyeOff className="!h-3 !w-3" /> : <Eye className="!h-3 !w-3" />
+                                    }
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                {
+                                    isBackgroundHidden ? <p>Show Background</p> : <p>Hide Background</p>
+                                }
+                            </TooltipContent>
+                        </Tooltip>
+
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button onClick={exportAsImage} className="h-7 bg-transparent border border-black dark:border-white text-black hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-white">
+                                    <DownloadIcon className="!h-3 !w-3" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Download Image</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                 </div>
             </div>
 
+
             <div
                 id="code-preview"
-                className={`w-full mt-5 max-w-4xl p-10 max-sm:p-3 rounded-md border border-gray-200 dark:border-none bg-yellow-100 shadow-lg ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''
+                className={`w-full max-w-4xl p-10 max-sm:p-2 rounded-md border border-gray-200 dark:border-none bg-yellow-100 shadow-lg ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''
                     }`}
                 style={{ backgroundColor }}
             >
@@ -157,7 +180,13 @@ export default function CodeEditor() {
                         wrapLongLines
                         showLineNumbers
                     >
-                        {code || "import { Button } from '@/components/ui/button';"}
+                        {code || `import Navbar from "@/ui/Navbar";
+
+export default function Home() {
+  return (
+    <Navbar />
+  );
+}`}
                     </SyntaxHighlighter>
                 </div>
             </div>
