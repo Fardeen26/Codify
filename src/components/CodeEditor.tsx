@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { coldarkDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { toPng } from "html-to-image";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
@@ -13,10 +13,10 @@ import { themes } from "@/lib/theme";
 
 export default function CodeEditor() {
     const [code, setCode] = useState<string>("");
-    const [theme, setTheme] = useState<typeof vscDarkPlus>(vscDarkPlus);
+    const [theme, setTheme] = useState<typeof coldarkDark>(coldarkDark);
     const [language, setLanguage] = useState<string>("javascript");
-    const [fontSize, setFontSize] = useState<number>(16);
-    const [backgroundColor, setBackgroundColor] = useState<string>("#EAE0A4");
+    const [fontSize, setFontSize] = useState<number>(14);
+    const [backgroundColor, setBackgroundColor] = useState<string>("#C7CFE0");
     const [isBackgroundHidden, setIsBackgroundHidden] = useState(false)
 
     const exportAsImage = () => {
@@ -54,7 +54,7 @@ export default function CodeEditor() {
 
                 />
 
-                <div className="flex flex-wrap gap-12 max-sm:gap-2 items-center justify-between max-sm:justify-center">
+                <div className="flex flex-wrap gap-4 max-sm:gap-2 items-center justify-between max-sm:justify-center">
                     <div className="flex items-center gap-2">
                         <Select
                             onValueChange={(value: string) => {
@@ -129,36 +129,37 @@ export default function CodeEditor() {
                         </Button>
                     </div>
                 </div>
-
             </div>
 
             <div
                 id="code-preview"
-                className={`w-full mt-5 max-w-4xl p-10 max-sm:p-3 rounded-md border border-gray-200 dark:border-none bg-yellow-100 shadow-lg relative ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''
+                className={`w-full mt-5 max-w-4xl p-10 max-sm:p-3 rounded-md border border-gray-200 dark:border-none bg-yellow-100 shadow-lg ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''
                     }`}
                 style={{ backgroundColor }}
             >
-                <div className="flex items-center space-x-2 mt-1 absolute top-6 max-sm:top-0 left-25 max-sm:left-4">
-                    <span className="w-[9px] h-[9px] max-sm:w-2 max-sm:h-2 rounded-full bg-red-500"></span>
-                    <span className="w-[9px] h-[9px] max-sm:w-2 max-sm:h-2 rounded-full bg-yellow-500"></span>
-                    <span className="w-[9px] h-[9px] max-sm:w-2 max-sm:h-2 rounded-full bg-green-500"></span>
-                </div>
+                <div className="relative">
+                    <div className="flex items-center space-x-2 mt-1 absolute left-3 top-2 z-10">
+                        <span className="w-[9px] h-[9px] max-sm:w-2 max-sm:h-2 rounded-full bg-red-500"></span>
+                        <span className="w-[9px] h-[9px] max-sm:w-2 max-sm:h-2 rounded-full bg-yellow-500"></span>
+                        <span className="w-[9px] h-[9px] max-sm:w-2 max-sm:h-2 rounded-full bg-green-500"></span>
+                    </div>
 
-                <SyntaxHighlighter
-                    language={language}
-                    style={theme}
-                    customStyle={{
-                        fontSize: `${fontSize}px`,
-                        borderRadius: "8px",
-                        padding: '18px 0 18px 15px',
-                        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4)',
-                        overflow: 'hidden'
-                    }}
-                    wrapLongLines
-                    showLineNumbers
-                >
-                    {code || "// Designed and Developed by Fardeen..."}
-                </SyntaxHighlighter>
+                    <SyntaxHighlighter
+                        language={language}
+                        style={theme}
+                        customStyle={{
+                            fontSize: `${fontSize}px`,
+                            borderRadius: "8px",
+                            padding: '45px 0 30px 13px',
+                            boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4)',
+                            overflow: 'hidden'
+                        }}
+                        wrapLongLines
+                        showLineNumbers
+                    >
+                        {code || "import { Button } from '@/components/ui/button';"}
+                    </SyntaxHighlighter>
+                </div>
             </div>
         </div>
     );
