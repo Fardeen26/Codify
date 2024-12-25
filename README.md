@@ -1,4 +1,4 @@
-# OrbitToken
+# Codify
 
 ## 📖 Introduction
 
