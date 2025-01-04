@@ -9,8 +9,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 import { themes } from "@/lib/theme";
-import { DownloadIcon, Eye, EyeOff } from "lucide-react";
+import { DownloadCloud, DownloadIcon, Eye, EyeOff } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+import {
+    AlertDialog,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
+
 
 
 export default function CodeEditor() {
@@ -20,6 +30,8 @@ export default function CodeEditor() {
     const [fontSize, setFontSize] = useState<number>(14);
     const [backgroundColor, setBackgroundColor] = useState<string>("#C7CFE0");
     const [isBackgroundHidden, setIsBackgroundHidden] = useState(false)
+    const [isDialogOpen, setIsDialogOpen] = useState(false)
+    const [cloudLink, setCloudLink] = useState<string>("")
 
     const exportAsImage = () => {
         const node = document.getElementById("code-preview");
@@ -39,12 +51,55 @@ export default function CodeEditor() {
             });
     };
 
+    const uploadToCloud = async () => {
+        const node = document.getElementById("code-preview");
+        if (!node) {
+            return;
+        }
+
+        try {
+            const dataUrl = await toPng(node);
+            const blob = await fetch(dataUrl).then((res) => res.blob());
+
+            const formData = new FormData();
+            formData.append("file", blob);
+            formData.append("upload_preset", "codify_preset");
+
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+                method: "POST",
+                body: formData,
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                setCloudLink(result.secure_url);
+                setIsDialogOpen(true);
+            } else {
+                console.error("Image upload failed:", result);
+            }
+        } catch (err) {
+            console.error("Could not export as image or upload to Cloud", err);
+        }
+    };
+
     const handleBackgroundHidden = () => {
         setIsBackgroundHidden(!isBackgroundHidden)
     }
 
     return (
         <div className="flex flex-col gap-6 min-h-[90vh] items-center pb-4 justify-center dark:text-white max-sm:px-2">
+            <AlertDialog open={isDialogOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        {/* <AlertDialogTitle></AlertDialogTitle> */}
+                        <AlertDialogDescription>{cloudLink}</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel onClick={() => setIsDialogOpen(false)}>Close</AlertDialogCancel>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+
             <div className="w-full max-w-4xl space-y-4 max-sm:space-y-4 mb-[-15px]">
                 <Textarea
                     className="w-full h-40 p-4 rounded-md border dark:text-white focus:ring-2 focus:ring-blue-500 focus:outline-none border-black dark:border-white bg-[#111827] text-white"
@@ -143,6 +198,11 @@ export default function CodeEditor() {
                             <TooltipTrigger asChild>
                                 <Button onClick={exportAsImage} className="h-7 bg-transparent border border-black dark:border-white text-black hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-white">
                                     <DownloadIcon className="!h-3 !w-3" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipTrigger asChild>
+                                <Button onClick={uploadToCloud} className="h-7 bg-transparent border border-black dark:border-white text-black hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-white">
+                                    <DownloadCloud className="!h-3 !w-3" />
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>
