@@ -18,7 +18,6 @@ import {
     AlertDialogDescription,
     AlertDialogFooter,
     AlertDialogHeader,
-    AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 
 
@@ -32,6 +31,7 @@ export default function CodeEditor() {
     const [isBackgroundHidden, setIsBackgroundHidden] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [cloudLink, setCloudLink] = useState<string>("")
+    const [isCopied, setIsCopied] = useState(false)
 
     const exportAsImage = () => {
         const node = document.getElementById("code-preview");
@@ -86,15 +86,21 @@ export default function CodeEditor() {
         setIsBackgroundHidden(!isBackgroundHidden)
     }
 
+    const copyToClipboard = () => {
+        setIsCopied(true)
+        navigator.clipboard.writeText(cloudLink);
+        setTimeout(() => setIsCopied(false), 1000);
+    };
+
     return (
         <div className="flex flex-col gap-6 min-h-[90vh] items-center pb-4 justify-center dark:text-white max-sm:px-2">
             <AlertDialog open={isDialogOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        {/* <AlertDialogTitle></AlertDialogTitle> */}
                         <AlertDialogDescription>{cloudLink}</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
+                        <AlertDialogCancel onClick={copyToClipboard}>{isCopied ? 'Copied' : 'Copy'}</AlertDialogCancel>
                         <AlertDialogCancel onClick={() => setIsDialogOpen(false)}>Close</AlertDialogCancel>
                     </AlertDialogFooter>
                 </AlertDialogContent>
