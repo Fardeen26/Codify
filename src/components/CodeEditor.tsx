@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "./ui/textarea";
 import { themes } from "@/lib/theme";
-import { DownloadCloud, DownloadIcon, Eye, EyeOff } from "lucide-react";
+import { DownloadIcon, Eye, EyeOff } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 import {
     AlertDialog,
@@ -19,7 +19,7 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
 } from "@/components/ui/alert-dialog"
-
+import { WiCloudUp } from "react-icons/wi";
 
 
 export default function CodeEditor() {
@@ -206,13 +206,19 @@ export default function CodeEditor() {
                                     <DownloadIcon className="!h-3 !w-3" />
                                 </Button>
                             </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Download Image</p>
+                            </TooltipContent>
+                        </Tooltip>
+
+                        <Tooltip>
                             <TooltipTrigger asChild>
                                 <Button onClick={uploadToCloud} className="h-7 bg-transparent border border-black dark:border-white text-black hover:bg-gray-200 dark:hover:bg-gray-900 dark:text-white">
-                                    <DownloadCloud className="!h-3 !w-3" />
+                                    <WiCloudUp />
                                 </Button>
                             </TooltipTrigger>
                             <TooltipContent>
-                                <p>Download Image</p>
+                                <p>Get URL</p>
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
@@ -222,7 +228,7 @@ export default function CodeEditor() {
 
             <div
                 id="code-preview"
-                className={`w-full max-w-4xl p-10 max-sm:p-2 rounded-md border border-gray-200 dark:border-none bg-yellow-100 shadow-lg ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''
+                className={`w-fit min-w-[40vw] mt-2 max-sm:w-full py-8 px-8 max-sm:px-2 max-sm:p-2 rounded-md border border-gray-200 dark:border-none bg-yellow-100 shadow-lg ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''
                     }`}
                 style={{ backgroundColor }}
             >
