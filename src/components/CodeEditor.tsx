@@ -27,11 +27,11 @@ export default function CodeEditor() {
     const [theme, setTheme] = useState<typeof coldarkDark>(coldarkDark);
     const [language, setLanguage] = useState<string>("javascript");
     const [fontSize, setFontSize] = useState<number>(14);
-    const [backgroundColor, setBackgroundColor] = useState<string>("#C7CFE0");
     const [isBackgroundHidden, setIsBackgroundHidden] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false)
     const [cloudLink, setCloudLink] = useState<string>("")
     const [isCopied, setIsCopied] = useState(false)
+    const [gradient, setGradient] = useState<string>("linear-gradient( 109.6deg,  rgba(204,0,0,1) 11.2%, rgba(68,0,0,1) 100.6% )")
 
     const exportAsImage = () => {
         const node = document.getElementById("code-preview");
@@ -39,7 +39,7 @@ export default function CodeEditor() {
             return;
         }
 
-        toPng(node)
+        toPng(node, { quality: 0.89 })
             .then((dataUrl) => {
                 const link = document.createElement("a");
                 link.download = "code.png";
@@ -124,7 +124,7 @@ export default function CodeEditor() {
                                 setTheme(themes[value]);
                             }}
                         >
-                            <SelectTrigger className="px-12 w-48 h-8 text-xs text-center border-black dark:border-white">
+                            <SelectTrigger className="w-fit text-xs text-center border-black dark:border-white">
                                 <SelectValue placeholder="Select Theme" className="text-center" />
                             </SelectTrigger>
                             <SelectContent>
@@ -143,7 +143,7 @@ export default function CodeEditor() {
                                 setLanguage(value);
                             }}
                         >
-                            <SelectTrigger className="px-12 w-52 h-8 text-xs border-black dark:border-white">
+                            <SelectTrigger className="w-fit h-fit text-xs border-black dark:border-white">
                                 <SelectValue placeholder="Select Language" />
                             </SelectTrigger>
                             <SelectContent>
@@ -161,14 +161,24 @@ export default function CodeEditor() {
                     </div>
 
                     <div className="flex items-center gap-2">
-                        <Input
-                            type="color"
-                            value={backgroundColor}
-                            onChange={(e) =>
-                                setBackgroundColor(e.target.value)
-                            }
-                            className="px-12 w-48 h-8 border-black dark:border-white"
-                        />
+                        <Select
+                            onValueChange={(value: string) => {
+                                setGradient(value);
+                            }}
+                        >
+                            <SelectTrigger className="border-black dark:border-white">
+                                <SelectValue placeholder="Select Gradient" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                {
+                                    gradientArray.map((item, index) => (
+                                        <SelectItem key={index} value={item}>
+                                            <div className="w-5 h-5 rounded-full" style={{ background: item }}></div>
+                                        </SelectItem>
+                                    ))
+                                }
+                            </SelectContent>
+                        </Select>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -225,12 +235,11 @@ export default function CodeEditor() {
                 </div>
             </div>
 
-
             <div
                 id="code-preview"
-                className={`w-fit min-w-[40vw] mt-2 max-sm:w-full py-8 px-8 max-sm:px-2 max-sm:p-2 rounded-md border border-gray-200 dark:border-none bg-yellow-100 shadow-lg ${isBackgroundHidden ? '!bg-transparent shadow-none border-none' : ''
+                className={`w-fit min-w-[20vw] max-sm:w-full py-8 px-10 max-sm:px-2 max-sm:p-2 shadow-lg ${isBackgroundHidden ? '!bg-none shadow-none' : ''
                     }`}
-                style={{ backgroundColor }}
+                style={{ background: gradient }}
             >
                 <div className="relative">
                     <div className="flex items-center space-x-2 mt-1 absolute left-3 top-2 z-10">
@@ -245,19 +254,19 @@ export default function CodeEditor() {
                         customStyle={{
                             fontSize: `${fontSize}px`,
                             borderRadius: "8px",
-                            padding: '45px 0 30px 13px',
+                            padding: '45px 35px 30px 13px',
                             boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4)',
-                            overflow: 'hidden'
+                            overflow: 'hidden',
+                            opacity: 0.85
                         }}
                         wrapLongLines
                         showLineNumbers
                     >
-                        {code || `import Navbar from "@/ui/Navbar";
+                        {code || `import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 
-export default function Home() {
-  return (
-    <Navbar />
-  );
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
 }`}
                     </SyntaxHighlighter>
                 </div>
@@ -265,3 +274,11 @@ export default function Home() {
         </div>
     );
 };
+
+const gradientArray = [
+    "linear-gradient( 109.6deg,  rgba(204,0,0,1) 11.2%, rgba(68,0,0,1) 100.6% )",
+    "linear-gradient( 177.5deg,  rgba(255,200,42,1) 28.3%, rgba(202,32,132,1) 79.8% )",
+    "radial-gradient( circle 297px at 8% 45%,  rgba(245,234,176,1) 0%, rgba(133,239,212,1) 100.7% )",
+    "radial-gradient( circle farthest-corner at 10% 20%,  rgba(56,207,191,1) 0%, rgba(10,70,147,1) 90.2% )",
+    // "linear-gradient( 109.6deg,  rgba(204,0,0,1) 11.2%, rgba(68,0,0,1) 100.6% )",
+]
