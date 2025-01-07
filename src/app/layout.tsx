@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <body
-          className={`${bricolage_grotesque_init.className} dark:bg-black bg-gray-100 min-h-screen`}
+          className={`${bricolage_grotesque_init.className} dark:bg-black bg-gray-100 min-h-screen overflow-x-hidden`}
         >
           <Header />
           {children}

@@ -21,7 +21,7 @@ export default function CodeEditor() {
     const { setPreviewRef } = useCodePreview();
 
     return (
-        <div className="flex w-full flex-col gap-6 items-center pb-4 mt-20 justify-center dark:text-white max-sm:px-2">
+        <div className="flex w-full flex-col gap-6 items-center pb-4 mt-20 justify-center dark:text-white max-sm:px-2 mb-8">
             <div className="w-full max-w-lg space-y-4 max-sm:space-y-4">
                 <Textarea
                     className="w-full h-40 p-4 rounded-md  bg-white text-white bg-opacity-10 backdrop-blur-lg border dark:border-white/20 dark:shadow-none"
@@ -35,7 +35,7 @@ export default function CodeEditor() {
 
             <div
                 ref={setPreviewRef}
-                className={`w-fit min-w-[20vw] max-sm:w-full py-8 mt-8 px-10 max-sm:px-2 max-sm:p-2 shadow-lg ${isBackgroundHidden ? '!bg-none shadow-none' : ''
+                className={`w-fit min-w-[20vw] max-sm:w-full py-8 px-10 max-sm:px-2 max-sm:p-2 shadow-lg ${isBackgroundHidden ? '!bg-none shadow-none' : ''
                     }`}
                 style={{ background: gradient }}
             >
@@ -52,7 +52,7 @@ export default function CodeEditor() {
                         customStyle={{
                             fontSize: `${fontSize}px`,
                             borderRadius: "8px",
-                            padding: '45px 35px 30px 13px',
+                            padding: '45px 35px 30px 10px',
                             boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4)',
                             overflow: 'hidden',
                             opacity: 0.85

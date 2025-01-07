@@ -75,14 +75,20 @@ export default function Dock() {
                                     setGradient(value);
                                 }}
                             >
-                                <SelectTrigger className="border-black dark:border-white space-x-1 w-16 h-6 flex items-center justify-center">
+                                <SelectTrigger className="border-black dark:border-white space-x-2 w-16 h-6 flex items-center justify-center">
                                     <div className="w-4 h-4 rounded-full" style={{ background: gradient }}></div>
                                 </SelectTrigger>
-                                <SelectContent>
+                                <SelectContent className="!w-48">
                                     {
-                                        gradientArray.map((item: string, index: number) => (
-                                            <SelectItem key={index} value={item}>
-                                                <div className="w-5 h-5 rounded-full" style={{ background: item }}></div>
+                                        gradientArray.map((item: { name: string; gradient: string; }, index: number) => (
+                                            <SelectItem
+                                                key={index}
+                                                value={item.gradient}
+                                                className="flex items-center gap-2 whitespace-nowrap relative"
+                                            >
+                                                <div className="min-w-[20px] h-5 rounded-full shrink-0" style={{ background: item.gradient }}>
+                                                    <span className="absolute ml-7 text-xs inline-block">{item.name}</span>
+                                                </div>
                                             </SelectItem>
                                         ))
                                     }
