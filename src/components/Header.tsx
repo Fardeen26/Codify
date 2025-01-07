@@ -1,23 +1,23 @@
 "use client"
 
-import { useDarkMode } from "@/hooks/useDarkMode";
-import { GithubIcon, MoonStar, SunIcon, Twitter } from "lucide-react";
-import Link from "next/link";
+import Link from "next/link"
 
 export default function Header() {
-    const { isDarkMode, toggleDarkMode } = useDarkMode()
     return (
-        <header className="p-3 flex justify-end pr-8 pt-6">
-            <nav>
-                <div className='flex items-center dark:text-white gap-4'>
-                    <button onClick={toggleDarkMode}>
-                        {isDarkMode ? <MoonStar className='w-[18px] h-[18px] max-sm:w-4 max-sm:h-4 hover:scale-105 transition-all' /> : <SunIcon className='w-5 h-5 max-sm:w-4 max-sm:h-4 hover:scale-105 transition-all' />}
-                    </button>
-                    <Link href={'https://github.com/Fardeen26'} target="_blank">
-                        <GithubIcon className="w-[18px] h-[18px] max-sm:w-4 max-sm:h-4 hover:scale-105 transition-all" />
-                    </Link>
-                    <Link href={'https://x.com/fardeen14693425'} target="_blank">
-                        <Twitter className="w-[18px] h-[18px] max-sm:w-4 max-sm:h-4 hover:scale-105 transition-all" />
+        <header className="fixed top-0 w-full p-4 backdrop-blur-md bg-black/10 z-50">
+            <nav className="max-w-7xl mx-auto flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                    <div className="w-4 h-4 rounded-full bg-gradient-to-r from-purple-400 to-pink-600"></div>
+                    <span className="text-white font-semibold">Codify</span>
+                </div>
+                <div className="text-gray-300 text-sm flex items-center space-x-2">
+                    <p>Made with ❤️ by</p>
+                    <Link
+                        href={'https://fardeen.tech'}
+                        target="_blank"
+                        className="text-white hover:text-purple-400 transition-colors underline"
+                    >
+                        Fardeen
                     </Link>
                 </div>
             </nav>

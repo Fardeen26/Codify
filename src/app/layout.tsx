@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
-import DarkModeProvider from "@/provider/DarkModeProvider";
 import Header from "@/components/Header";
 import { Analytics } from "@vercel/analytics/react"
 
 import "./globals.css";
+import Providers from "@/provider/Providers";
 
 const bricolage_grotesque_init = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <DarkModeProvider>
+      <Providers>
         <body
           className={`${bricolage_grotesque_init.className} dark:bg-black bg-gray-100 min-h-screen`}
         >
@@ -31,7 +31,7 @@ export default function RootLayout({
           {children}
           <Analytics />
         </body>
-      </DarkModeProvider>
+      </Providers>
     </html>
   );
 }
