@@ -24,7 +24,7 @@ export default function CodeEditor() {
         <div className="flex w-full flex-col gap-6 items-center pb-4 mt-20 justify-center dark:text-white max-sm:px-2 mb-8">
             <div className="w-full max-w-lg space-y-4 max-sm:space-y-4">
                 <Textarea
-                    className="w-full h-40 p-4 rounded-md  bg-white text-white bg-opacity-10 backdrop-blur-lg border dark:border-white/20 dark:shadow-none"
+                    className="w-full h-40 p-4 rounded-md bg-white dark:text-white text-black bg-opacity-10 backdrop-blur-lg border dark:border-white/20 dark:shadow-none"
                     value={code}
                     onChange={(e) =>
                         setCode(e.target.value)

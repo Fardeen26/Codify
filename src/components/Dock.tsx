@@ -59,7 +59,7 @@ export default function Dock() {
     return (
         <section className="fixed bottom-0 w-full max-sm:overflow-x-auto flex justify-center">
             <div className="flex justify-center w-fit min-w-[40vw] max-sm:min-w-full max-sm:w-full max-sm:justify-start">
-                <div className="flex items-center h-20 px-10 rounded-t-xl bg-white text-white bg-opacity-10 backdrop-blur-lg border dark:border-white/20 dark:shadow-none">
+                <div className="flex items-center h-20 px-10 rounded-t-xl bg-white text-black bg-opacity-10 backdrop-blur-lg border dark:border-white/20 dark:shadow-none dark:text-white">
                     <PopupDialog
                         setIsCopied={setIsCopied}
                         isCopied={isCopied}

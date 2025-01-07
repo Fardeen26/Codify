@@ -8,14 +8,14 @@ export default function Header() {
             <nav className="max-w-7xl mx-auto flex justify-between items-center">
                 <div className="flex items-center space-x-2">
                     <div className="w-4 h-4 rounded-full bg-gradient-to-r from-purple-400 to-pink-600"></div>
-                    <span className="text-white font-semibold">Codify</span>
+                    <span className="dark:text-white text-black font-semibold">Codify</span>
                 </div>
-                <div className="text-gray-300 text-sm flex items-center space-x-2">
+                <div className="dark:text-gray-300 text-black text-sm flex items-center space-x-2">
                     <p>Made with ❤️ by</p>
                     <Link
                         href={'https://fardeen.tech'}
                         target="_blank"
-                        className="text-white hover:text-purple-400 transition-colors underline"
+                        className="dark:text-white text-black hover:text-purple-400 transition-colors underline"
                     >
                         Fardeen
                     </Link>
