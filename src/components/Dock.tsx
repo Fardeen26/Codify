@@ -23,6 +23,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
+import { useDarkMode } from "@/hooks/useDarkMode";
 
 
 export default function Dock() {
@@ -35,6 +36,7 @@ export default function Dock() {
     const { fontSize, setFontSize } = useFontSize();
     const { isBackgroundHidden, setIsBackgroundHidden } = useBackground();
     const { getPreviewRef } = useCodePreview();
+    const { isDarkMode, toggleDarkMode } = useDarkMode();
 
     const handleExportImage = () => {
         const node = getPreviewRef();
@@ -152,7 +154,7 @@ export default function Dock() {
                             <Label className="text-xs">Export</Label>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button variant="outline" className="px-3 py-1 text-xs h-6 bg-transparent">
+                                    <Button variant="outline" className="px-3 py-1 text-xs h-6 bg-transparent border-black dark:border-white">
                                         Export
                                     </Button>
                                 </DropdownMenuTrigger>
@@ -168,7 +170,11 @@ export default function Dock() {
                         </div>
                         <div className="space-y-1 flex flex-col">
                             <Label className="text-xs" htmlFor="darkMode">Background</Label>
-                            <Switch checked={isBackgroundHidden} onCheckedChange={setIsBackgroundHidden} />
+                            <Switch checked={isBackgroundHidden} onCheckedChange={setIsBackgroundHidden} className="dark:data-[state=checked]:bg-blue-500" />
+                        </div>
+                        <div className="space-y-1 flex flex-col">
+                            <Label className="text-xs" htmlFor="darkMode">Dark Mode</Label>
+                            <Switch checked={isDarkMode} onCheckedChange={toggleDarkMode} className="data-[state=checked]:bg-blue-500 data-[state=unchecked]:bg-black" />
                         </div>
                     </div>
                 </div>
