@@ -13,6 +13,7 @@ import { Switch } from "@/components/ui/switch"
 import { useBackground } from "@/hooks/useBackground";
 import uploadToCloud from "@/utils/uploadToCloud";
 import exportAsImage from "@/utils/exportAsImage";
+import copyAsImage from "@/utils/copyAsImage";
 import { useCodePreview } from "@/hooks/useCodePreview";
 import PopupDialog from "./PopupDialog";
 import { useState } from "react";
@@ -24,6 +25,7 @@ import {
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
 import { useDarkMode } from "@/hooks/useDarkMode";
+import { toast } from 'sonner'
 
 
 export default function Dock() {
@@ -54,6 +56,20 @@ export default function Dock() {
                 setIsDialogOpen(true);
             } catch (err) {
                 console.error("Upload failed:", err);
+            }
+        }
+    };
+
+    const handleCopyImage = async () => {
+        const node = getPreviewRef();
+        if (node) {
+            try {
+                await copyAsImage(node);
+                setIsCopied(true);
+                toast.success("Image copied to clipboard");
+                setTimeout(() => setIsCopied(false), 1500);
+            } catch {
+                console.log("failed to copy image")
             }
         }
     };
@@ -162,14 +178,14 @@ export default function Dock() {
                                     <DropdownMenuItem onClick={handleExportImage}>
                                         Download Image
                                     </DropdownMenuItem>
-                                    <DropdownMenuItem onClick={handleUploadToCloud}>
-                                        Get URL
+                                    <DropdownMenuItem onClick={handleCopyImage}>
+                                        Copy Image
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                             </DropdownMenu>
                         </div>
                         <div className="space-y-1 flex flex-col">
-                            <Label className="text-xs" htmlFor="darkMode">Background</Label>
+                            <Label className="text-xs" htmlFor="darkMode">Remove BG</Label>
                             <Switch checked={isBackgroundHidden} onCheckedChange={setIsBackgroundHidden} className="dark:data-[state=checked]:bg-blue-500" />
                         </div>
                         <div className="space-y-1 flex flex-col">

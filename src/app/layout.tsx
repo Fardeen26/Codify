@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque } from "next/font/google";
 import Header from "@/components/Header";
 import { Analytics } from "@vercel/analytics/react"
+import { Toaster } from 'sonner'
 
 import "./globals.css";
 import Providers from "@/provider/Providers";
@@ -29,6 +30,7 @@ export default function RootLayout({
         >
           <Header />
           {children}
+          <Toaster />
           <Analytics />
         </body>
       </Providers>

@@ -8,7 +8,7 @@ type BackgroundContextType = {
 export const BackgroundContext = createContext<BackgroundContextType | undefined>(undefined);
 
 export const BackgroundProvider = ({ children }: { children: React.ReactNode }) => {
-    const [isBackgroundHidden, setIsBackgroundHidden] = useState(false);
+    const [isBackgroundHidden, setIsBackgroundHidden] = useState(true);
 
     return <BackgroundContext.Provider value={{ isBackgroundHidden, setIsBackgroundHidden }}>{children}</BackgroundContext.Provider>;
 };
