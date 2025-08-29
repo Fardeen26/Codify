@@ -11,7 +11,6 @@ import { useFontSize } from "@/hooks/useFontSize";
 import { Label } from "./ui/label";
 import { Switch } from "@/components/ui/switch"
 import { useBackground } from "@/hooks/useBackground";
-import uploadToCloud from "@/utils/uploadToCloud";
 import exportAsImage from "@/utils/exportAsImage";
 import copyAsImage from "@/utils/copyAsImage";
 import { useCodePreview } from "@/hooks/useCodePreview";
@@ -30,7 +29,7 @@ import { toast } from 'sonner'
 
 export default function Dock() {
     const [isDialogOpen, setIsDialogOpen] = useState(false)
-    const [cloudLink, setCloudLink] = useState<string>("")
+    const [cloudLink] = useState<string>("")
     const [isCopied, setIsCopied] = useState(false)
     const { gradient, setGradient } = useGradient();
     const { setTheme } = useTheme();
@@ -47,18 +46,18 @@ export default function Dock() {
         }
     };
 
-    const handleUploadToCloud = async () => {
-        const node = getPreviewRef();
-        if (node) {
-            try {
-                const url = await uploadToCloud(node);
-                setCloudLink(url);
-                setIsDialogOpen(true);
-            } catch (err) {
-                console.error("Upload failed:", err);
-            }
-        }
-    };
+    // const handleUploadToCloud = async () => {
+    //     const node = getPreviewRef();
+    //     if (node) {
+    //         try {
+    //             const url = await uploadToCloud(node);
+    //             setCloudLink(url);
+    //             setIsDialogOpen(true);
+    //         } catch (err) {
+    //             console.error("Upload failed:", err);
+    //         }
+    //     }
+    // };
 
     const handleCopyImage = async () => {
         const node = getPreviewRef();
